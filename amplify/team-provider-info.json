@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-dekalbtowncouncil-dev-163728-authRole",
+      "UnauthRoleArn": "arn:aws:iam::179682925980:role/amplify-dekalbtowncouncil-dev-163728-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::179682925980:role/amplify-dekalbtowncouncil-dev-163728-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-dekalbtowncouncil-dev-163728-deployment",
+      "UnauthRoleName": "amplify-dekalbtowncouncil-dev-163728-unauthRole",
+      "StackName": "amplify-dekalbtowncouncil-dev-163728",
+      "StackId": "arn:aws:cloudformation:us-east-1:179682925980:stack/amplify-dekalbtowncouncil-dev-163728/20acef00-00bc-11ee-ab8e-0ab1627a082f",
+      "AmplifyAppId": "d3n71z6zrthp43"
+    }
+  }
+}
