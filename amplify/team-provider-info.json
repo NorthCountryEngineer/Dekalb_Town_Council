@@ -10,6 +10,11 @@
       "StackName": "amplify-dekalbtowncouncil-dev-163728",
       "StackId": "arn:aws:cloudformation:us-east-1:179682925980:stack/amplify-dekalbtowncouncil-dev-163728/20acef00-00bc-11ee-ab8e-0ab1627a082f",
       "AmplifyAppId": "d3n71z6zrthp43"
+    },
+    "categories": {
+      "auth": {
+        "dekalbtowncouncilbc145c29": {}
+      }
     }
   }
 }

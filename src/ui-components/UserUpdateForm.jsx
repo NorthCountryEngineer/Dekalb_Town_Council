@@ -8,13 +8,13 @@
 import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Comment } from "../models";
+import { User } from "../models";
 import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
-export default function CommentUpdateForm(props) {
+export default function UserUpdateForm(props) {
   const {
     id: idProp,
-    comment: commentModelProp,
+    user: userModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -24,38 +24,30 @@ export default function CommentUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    UserID: "",
-    Header: "",
-    Body: "",
+    cognitoID: "",
   };
-  const [UserID, setUserID] = React.useState(initialValues.UserID);
-  const [Header, setHeader] = React.useState(initialValues.Header);
-  const [Body, setBody] = React.useState(initialValues.Body);
+  const [cognitoID, setCognitoID] = React.useState(initialValues.cognitoID);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = commentRecord
-      ? { ...initialValues, ...commentRecord }
+    const cleanValues = userRecord
+      ? { ...initialValues, ...userRecord }
       : initialValues;
-    setUserID(cleanValues.UserID);
-    setHeader(cleanValues.Header);
-    setBody(cleanValues.Body);
+    setCognitoID(cleanValues.cognitoID);
     setErrors({});
   };
-  const [commentRecord, setCommentRecord] = React.useState(commentModelProp);
+  const [userRecord, setUserRecord] = React.useState(userModelProp);
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
-        ? await DataStore.query(Comment, idProp)
-        : commentModelProp;
-      setCommentRecord(record);
+        ? await DataStore.query(User, idProp)
+        : userModelProp;
+      setUserRecord(record);
     };
     queryData();
-  }, [idProp, commentModelProp]);
-  React.useEffect(resetStateValues, [commentRecord]);
+  }, [idProp, userModelProp]);
+  React.useEffect(resetStateValues, [userRecord]);
   const validations = {
-    UserID: [],
-    Header: [],
-    Body: [],
+    cognitoID: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -83,9 +75,7 @@ export default function CommentUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          UserID,
-          Header,
-          Body,
+          cognitoID,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -116,7 +106,7 @@ export default function CommentUpdateForm(props) {
             }
           });
           await DataStore.save(
-            Comment.copyOf(commentRecord, (updated) => {
+            User.copyOf(userRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -129,86 +119,32 @@ export default function CommentUpdateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "CommentUpdateForm")}
+      {...getOverrideProps(overrides, "UserUpdateForm")}
       {...rest}
     >
       <TextField
-        label="User id"
+        label="Cognito id"
         isRequired={false}
         isReadOnly={false}
-        value={UserID}
+        value={cognitoID}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              UserID: value,
-              Header,
-              Body,
+              cognitoID: value,
             };
             const result = onChange(modelFields);
-            value = result?.UserID ?? value;
+            value = result?.cognitoID ?? value;
           }
-          if (errors.UserID?.hasError) {
-            runValidationTasks("UserID", value);
+          if (errors.cognitoID?.hasError) {
+            runValidationTasks("cognitoID", value);
           }
-          setUserID(value);
+          setCognitoID(value);
         }}
-        onBlur={() => runValidationTasks("UserID", UserID)}
-        errorMessage={errors.UserID?.errorMessage}
-        hasError={errors.UserID?.hasError}
-        {...getOverrideProps(overrides, "UserID")}
-      ></TextField>
-      <TextField
-        label="Header"
-        isRequired={false}
-        isReadOnly={false}
-        value={Header}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              UserID,
-              Header: value,
-              Body,
-            };
-            const result = onChange(modelFields);
-            value = result?.Header ?? value;
-          }
-          if (errors.Header?.hasError) {
-            runValidationTasks("Header", value);
-          }
-          setHeader(value);
-        }}
-        onBlur={() => runValidationTasks("Header", Header)}
-        errorMessage={errors.Header?.errorMessage}
-        hasError={errors.Header?.hasError}
-        {...getOverrideProps(overrides, "Header")}
-      ></TextField>
-      <TextField
-        label="Body"
-        isRequired={false}
-        isReadOnly={false}
-        value={Body}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              UserID,
-              Header,
-              Body: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.Body ?? value;
-          }
-          if (errors.Body?.hasError) {
-            runValidationTasks("Body", value);
-          }
-          setBody(value);
-        }}
-        onBlur={() => runValidationTasks("Body", Body)}
-        errorMessage={errors.Body?.errorMessage}
-        hasError={errors.Body?.hasError}
-        {...getOverrideProps(overrides, "Body")}
+        onBlur={() => runValidationTasks("cognitoID", cognitoID)}
+        errorMessage={errors.cognitoID?.errorMessage}
+        hasError={errors.cognitoID?.hasError}
+        {...getOverrideProps(overrides, "cognitoID")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -221,7 +157,7 @@ export default function CommentUpdateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          isDisabled={!(idProp || commentModelProp)}
+          isDisabled={!(idProp || userModelProp)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
@@ -233,7 +169,7 @@ export default function CommentUpdateForm(props) {
             type="submit"
             variation="primary"
             isDisabled={
-              !(idProp || commentModelProp) ||
+              !(idProp || userModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
             {...getOverrideProps(overrides, "SubmitButton")}

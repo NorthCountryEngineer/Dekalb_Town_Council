@@ -1,0 +1,20 @@
+type CommentResponse @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  untitledfield: String
+  commentID: ID! @index(name: "byComment")
+}
+
+type Comment @model @auth(rules: [{allow: private, operations: [create, read]}, {allow: owner}]) {
+  id: ID!
+  User: User @hasOne
+  UserID: ID
+  Header: String
+  Body: String
+  CommentResponses: [CommentResponse] @hasMany(indexName: "byComment", fields: ["id"])
+}
+
+type User @model @auth(rules: [{allow: owner}, {allow: private, operations: [create, read]}]) {
+  id: ID!
+  cognitoID: ID
+  Comment: Comment @belongsTo
+}

@@ -23,16 +23,24 @@ export default function CommentCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    content: "",
+    UserID: "",
+    Header: "",
+    Body: "",
   };
-  const [content, setContent] = React.useState(initialValues.content);
+  const [UserID, setUserID] = React.useState(initialValues.UserID);
+  const [Header, setHeader] = React.useState(initialValues.Header);
+  const [Body, setBody] = React.useState(initialValues.Body);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setContent(initialValues.content);
+    setUserID(initialValues.UserID);
+    setHeader(initialValues.Header);
+    setBody(initialValues.Body);
     setErrors({});
   };
   const validations = {
-    content: [{ type: "Required" }],
+    UserID: [],
+    Header: [],
+    Body: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -60,7 +68,9 @@ export default function CommentCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          content,
+          UserID,
+          Header,
+          Body,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -107,28 +117,82 @@ export default function CommentCreateForm(props) {
       {...rest}
     >
       <TextField
-        label="Content"
-        isRequired={true}
+        label="User id"
+        isRequired={false}
         isReadOnly={false}
-        value={content}
+        value={UserID}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              content: value,
+              UserID: value,
+              Header,
+              Body,
             };
             const result = onChange(modelFields);
-            value = result?.content ?? value;
+            value = result?.UserID ?? value;
           }
-          if (errors.content?.hasError) {
-            runValidationTasks("content", value);
+          if (errors.UserID?.hasError) {
+            runValidationTasks("UserID", value);
           }
-          setContent(value);
+          setUserID(value);
         }}
-        onBlur={() => runValidationTasks("content", content)}
-        errorMessage={errors.content?.errorMessage}
-        hasError={errors.content?.hasError}
-        {...getOverrideProps(overrides, "content")}
+        onBlur={() => runValidationTasks("UserID", UserID)}
+        errorMessage={errors.UserID?.errorMessage}
+        hasError={errors.UserID?.hasError}
+        {...getOverrideProps(overrides, "UserID")}
+      ></TextField>
+      <TextField
+        label="Header"
+        isRequired={false}
+        isReadOnly={false}
+        value={Header}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              UserID,
+              Header: value,
+              Body,
+            };
+            const result = onChange(modelFields);
+            value = result?.Header ?? value;
+          }
+          if (errors.Header?.hasError) {
+            runValidationTasks("Header", value);
+          }
+          setHeader(value);
+        }}
+        onBlur={() => runValidationTasks("Header", Header)}
+        errorMessage={errors.Header?.errorMessage}
+        hasError={errors.Header?.hasError}
+        {...getOverrideProps(overrides, "Header")}
+      ></TextField>
+      <TextField
+        label="Body"
+        isRequired={false}
+        isReadOnly={false}
+        value={Body}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              UserID,
+              Header,
+              Body: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Body ?? value;
+          }
+          if (errors.Body?.hasError) {
+            runValidationTasks("Body", value);
+          }
+          setBody(value);
+        }}
+        onBlur={() => runValidationTasks("Body", Body)}
+        errorMessage={errors.Body?.errorMessage}
+        hasError={errors.Body?.hasError}
+        {...getOverrideProps(overrides, "Body")}
       ></TextField>
       <Flex
         justifyContent="space-between"
