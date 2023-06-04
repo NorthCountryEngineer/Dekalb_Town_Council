@@ -1,7 +1,15 @@
-import { CssBaseline, Grid, Container } from "@mui/material";
-import { Calendar } from "./Components";
+import { CssBaseline, Grid, Container, Paper } from "@mui/material";
+import { Calendar, ContactForm } from "./Components";
+import { Stack, styled } from "@mui/system";
 
 export function Home() {
+
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor:  '#fff',
+    padding: theme.spacing(1),
+    textAlign: 'center',
+  }));
+
   return (
     <div style={{ 
       position: 'fixed',
@@ -16,16 +24,17 @@ export function Home() {
     }}>
       <CssBaseline />
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} style={{ height: '250px' }}></Grid>
+        <Grid container spacing={3} direction="row">
+          <Grid item xs={12} style={{ height: "350px" }} />
 
           <Grid item xs={12}>
-            
+            <Stack direction="row" spacing={0}>
+              <Item style={{width:"40%", marginLeft:"15px"}}>
+                <ContactForm />
+              </Item>
+            </Stack>
           </Grid>
 
-          <Grid item xs={12}>
-            <Calendar />
-          </Grid>
         </Grid>
     </div>
   );

@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import { AppBar, Toolbar, Drawer, Typography, Grid } from '@mui/material';
+import { useState } from 'react'
+import { AppBar, Toolbar, Drawer, Typography, Grid, Stack } from '@mui/material'
+import { Star } from '@mui/icons-material'
 
 export const Header = ({title}) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setIsMenuOpen(!isMenuOpen)
+  }
 
   return (
     <>
-        <AppBar position="fixed" sx={{ height: '200px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+        <AppBar position="fixed" sx={{ height: '250px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
             <Toolbar>
-                <Grid container spacing={1} justifyContent="center">
-                    <Grid item xs={12} sx={{height:'100px'}} />
-                    <Grid item xs={12} sm={6} md={4}>
+                <Grid container spacing={3} alignItems="center" direction="column">
+                    <Grid item xs={12} justifyContent="center">
                         <div style={{ 
-                            width: '400px;',
+                            width: '500px', 
                             height: 'auto', 
-                            position: 'relative' 
+                            position: 'sticky'
                         }}>
                             <img 
                                 src="/Images/Banner.png"
@@ -26,10 +26,7 @@ export const Header = ({title}) => {
                                 style={{ 
                                     width: '100%', 
                                     height: 'auto', 
-                                    position: 'absolute', 
-                                    top: '50%', 
-                                    left: '50%', 
-                                    transform: 'translate(-50%, -50%)' 
+                                    position: 'absolute'
                                 }} 
                             />
                         </div>
@@ -37,9 +34,11 @@ export const Header = ({title}) => {
                 </Grid>
             </Toolbar>
         </AppBar>
+
+
         <Drawer anchor="left" open={isMenuOpen} onClose={toggleMenu}>
             {/* Add your side menu content here */}
         </Drawer>
     </>
-  );
-};
+  )
+}
