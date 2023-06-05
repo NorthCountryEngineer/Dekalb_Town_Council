@@ -1,16 +1,9 @@
 import { CssBaseline, Grid, Container, Paper } from "@mui/material";
 import CampaignPoints, { Calendar, ContactForm } from "./Components";
 import { Stack, styled } from "@mui/system";
+import Item from "../../Components/Common/Components";
 
 export function Home() {
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'rgb(255, 255, 255, 0.8)',
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    outline: '2px solid #94191b',
-    display: 'flex',
-    flexDirection: 'row',
-  }));
 
   return (
     <div
@@ -32,7 +25,7 @@ export function Home() {
 
         <Grid item xs={12}>
           <Stack direction="row" spacing={0}>
-            <Item style={{ maxHeight: "90%", height:"100%", width: "30%", marginLeft: "15px" }}>
+            <Item style={{ maxHeight: "90%", height:"100%", width: "40%", marginLeft: "15px" }}>
               <CampaignPoints />
             </Item>
             <div style={{width:"10%"}} />

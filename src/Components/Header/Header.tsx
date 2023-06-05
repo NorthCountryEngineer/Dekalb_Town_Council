@@ -53,19 +53,21 @@ export const Header = ({ title }) => {
         </Stack>
       </Drawer>
 
-      <Fab
-        color="primary"
-        variant="extended"
-        style={{
-          position: 'fixed',
-          bottom: '20px',
-          right: '20px',
-        }}
-        onClick={toggleMenu}
-      >
-        <Chat sx={{ mr: 1 }} />
-        Ask me Anything
-      </Fab>
+        <Fab
+            color="primary"
+            variant="extended"
+            size="large" // Increase the size to make it larger
+            style={{
+                position: 'fixed',
+                bottom: '5%',
+                right: '50%',
+                transform: 'translate(50%, 50%)', // Center the Fab horizontally and vertically
+            }}
+            onClick={toggleMenu}
+        >
+            <Chat sx={{ mr: 1 }} />
+            Ask me Anything
+        </Fab>
     </>
   )
 }
