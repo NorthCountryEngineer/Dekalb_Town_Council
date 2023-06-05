@@ -1,55 +1,7 @@
 import { useState } from 'react'
-import { AppBar, Toolbar, Drawer, Typography, Grid, Stack, Avatar } from '@mui/material'
-import { Star } from '@mui/icons-material'
-
-export const Header = ({title}) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  return (
-    <>
-        <AppBar position="fixed" sx={{ height: '250px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
-            <Toolbar>
-                <Grid container spacing={0}>
-                    <Grid xs={4}>
-                        <Avatar
-                            src="/Images/EricHomePhoto.png"
-                            alt="Your Photo"
-                            sx={{ width: '230px', height: '230px' }}
-                        />
-                    </Grid>
-                    <Grid xs={3} />
-
-                    <Grid xs={5}>
-                        <img 
-                            src="/Images/Banner.png"
-                            alt="Banner"
-                            style={{ 
-                                width: '600px', 
-                                height: 'auto', 
-                                position: 'absolute'
-                            }} 
-                        />
-                    </Grid>
-                </Grid>
-            </Toolbar>
-        </AppBar>
-
-
-        <Drawer anchor="left" open={isMenuOpen} onClose={toggleMenu}>
-            {/* Add your side menu content here */}
-        </Drawer>
-    </>
-  )
-}
-
-/** 
-import { useState } from 'react'
-import { AppBar, Toolbar, Drawer, Typography, Grid, Stack, Avatar } from '@mui/material'
-import { Star } from '@mui/icons-material'
+import { AppBar, Toolbar, Drawer, Typography, Grid, Stack, Avatar, Fab } from '@mui/material'
+import { Star, Chat, StarBorder } from '@mui/icons-material'
+import { ContactForm } from '../../Views/Home'
 
 export const Header = ({ title }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -60,27 +12,60 @@ export const Header = ({ title }) => {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ height: '250px', backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
+      <AppBar position="fixed" sx={{ height: '100%', maxHeight: "200px", backgroundColor: 'rgba(255, 255, 255, 0.7)' }}>
         <Toolbar>
-          <Grid container spacing={3} alignItems="center" direction="column">
-            <Grid item xs={12} justifyContent="center">
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar
-                  src="/Images/HomePhotoEric.png"
-                  alt="Your Photo"
-                  sx={{ width: '80px', height: '80px' }}
+          <Grid container spacing={0} alignItems="center" justifyContent="center" height="100%">
+            <Grid item xs={12} sm={6} md={4} display="flex" alignItems="center" justifyContent="center">
+              <Stack direction="column" alignItems="center">
+                <img
+                  src="/Images/Banner.png"
+                  alt="Banner"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    width: 'auto',
+                    height: '175px',
+                  }}
                 />
-                <Typography variant="h6">{title}</Typography>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 'bold',
+                    color: '#000000',
+                    whiteSpace: 'nowrap', // Prevent text from wrapping to the next line
+                    overflow: 'hidden', // Hide any overflowing text
+                    textOverflow: 'ellipsis', // Show ellipsis (...) for truncated text
+                  }}
+                >
+                  Intelligent Growth <Star fontSize="small" sx={{ml:"10px", mr:"10px", color:"#94191b"}}/> Transparent Governance <Star fontSize="small" sx={{ml:"10px", mr:"10px", color:"#94191b"}}/>  Economic Development
+                </div>
               </Stack>
             </Grid>
           </Grid>
         </Toolbar>
       </AppBar>
 
-      <Drawer anchor="left" open={isMenuOpen} onClose={toggleMenu}>
-
+      <Drawer anchor="right" open={isMenuOpen} onClose={toggleMenu}>
+        <Stack direction="column" spacing={2} p={2}>
+          <ContactForm />
+        </Stack>
       </Drawer>
+
+      <Fab
+        color="primary"
+        variant="extended"
+        style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+        }}
+        onClick={toggleMenu}
+      >
+        <Chat sx={{ mr: 1 }} />
+        Ask me Anything
+      </Fab>
     </>
   )
 }
-*/

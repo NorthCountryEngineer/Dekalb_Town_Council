@@ -1,5 +1,5 @@
 import { CssBaseline, Grid, Container, Paper } from "@mui/material";
-import { Calendar, ContactForm } from "./Components";
+import CampaignPoints, { Calendar, ContactForm } from "./Components";
 import { Stack, styled } from "@mui/system";
 
 export function Home() {
@@ -28,16 +28,18 @@ export function Home() {
       <CssBaseline />
 
       <Grid container spacing={3} direction="row">
-        <Grid item xs={12} style={{ height: "350px" }} />
+        <Grid item xs={12} style={{ height: "215px" }} />
 
         <Grid item xs={12}>
           <Stack direction="row" spacing={0}>
-            <Item style={{ width: "30%", marginLeft: "15px" }}>
-              <ContactForm />
+            <Item style={{ maxHeight: "90%", height:"100%", width: "30%", marginLeft: "15px" }}>
+              <CampaignPoints />
             </Item>
-            <div style={{ width: "40%" }} />
-            <div style={{ width: "30%", marginRight: "15px" }} >
-             Content to go here explaining my top items
+            <div style={{width:"10%"}} />
+            
+            <div style={{ width: "60%", marginRight: "15px" }} >
+              
+
             </div>
           </Stack>
         </Grid>
