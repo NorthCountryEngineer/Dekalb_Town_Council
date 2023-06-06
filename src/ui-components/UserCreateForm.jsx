@@ -6,7 +6,13 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { User } from "../models";
 import { fetchByPath, validateField } from "./utils";
@@ -24,15 +30,27 @@ export default function UserCreateForm(props) {
   } = props;
   const initialValues = {
     cognitoID: "",
+    Email: "",
+    Phone: "",
+    Newsletter: false,
   };
   const [cognitoID, setCognitoID] = React.useState(initialValues.cognitoID);
+  const [Email, setEmail] = React.useState(initialValues.Email);
+  const [Phone, setPhone] = React.useState(initialValues.Phone);
+  const [Newsletter, setNewsletter] = React.useState(initialValues.Newsletter);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setCognitoID(initialValues.cognitoID);
+    setEmail(initialValues.Email);
+    setPhone(initialValues.Phone);
+    setNewsletter(initialValues.Newsletter);
     setErrors({});
   };
   const validations = {
     cognitoID: [],
+    Email: [{ type: "Required" }],
+    Phone: [],
+    Newsletter: [],
   };
   const runValidationTasks = async (
     fieldName,
@@ -61,6 +79,9 @@ export default function UserCreateForm(props) {
         event.preventDefault();
         let modelFields = {
           cognitoID,
+          Email,
+          Phone,
+          Newsletter,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -116,6 +137,9 @@ export default function UserCreateForm(props) {
           if (onChange) {
             const modelFields = {
               cognitoID: value,
+              Email,
+              Phone,
+              Newsletter,
             };
             const result = onChange(modelFields);
             value = result?.cognitoID ?? value;
@@ -130,6 +154,87 @@ export default function UserCreateForm(props) {
         hasError={errors.cognitoID?.hasError}
         {...getOverrideProps(overrides, "cognitoID")}
       ></TextField>
+      <TextField
+        label="Email"
+        isRequired={true}
+        isReadOnly={false}
+        value={Email}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              cognitoID,
+              Email: value,
+              Phone,
+              Newsletter,
+            };
+            const result = onChange(modelFields);
+            value = result?.Email ?? value;
+          }
+          if (errors.Email?.hasError) {
+            runValidationTasks("Email", value);
+          }
+          setEmail(value);
+        }}
+        onBlur={() => runValidationTasks("Email", Email)}
+        errorMessage={errors.Email?.errorMessage}
+        hasError={errors.Email?.hasError}
+        {...getOverrideProps(overrides, "Email")}
+      ></TextField>
+      <TextField
+        label="Phone"
+        isRequired={false}
+        isReadOnly={false}
+        value={Phone}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              cognitoID,
+              Email,
+              Phone: value,
+              Newsletter,
+            };
+            const result = onChange(modelFields);
+            value = result?.Phone ?? value;
+          }
+          if (errors.Phone?.hasError) {
+            runValidationTasks("Phone", value);
+          }
+          setPhone(value);
+        }}
+        onBlur={() => runValidationTasks("Phone", Phone)}
+        errorMessage={errors.Phone?.errorMessage}
+        hasError={errors.Phone?.hasError}
+        {...getOverrideProps(overrides, "Phone")}
+      ></TextField>
+      <SwitchField
+        label="Newsletter"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={Newsletter}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              cognitoID,
+              Email,
+              Phone,
+              Newsletter: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.Newsletter ?? value;
+          }
+          if (errors.Newsletter?.hasError) {
+            runValidationTasks("Newsletter", value);
+          }
+          setNewsletter(value);
+        }}
+        onBlur={() => runValidationTasks("Newsletter", Newsletter)}
+        errorMessage={errors.Newsletter?.errorMessage}
+        hasError={errors.Newsletter?.hasError}
+        {...getOverrideProps(overrides, "Newsletter")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

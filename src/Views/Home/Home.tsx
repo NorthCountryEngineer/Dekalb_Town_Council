@@ -25,12 +25,13 @@ export function Home() {
 
         <Grid item xs={12}>
           <Stack direction="row" spacing={0}>
-            <Item style={{ maxHeight: "90%", height:"100%", width: "40%", marginLeft: "15px" }}>
+            <div style={{width:"20%"}} />
+
+            <Item style={{ maxHeight: "90%", height:"100%", width: "60%", marginLeft: "15px" }}>
               <CampaignPoints />
             </Item>
-            <div style={{width:"10%"}} />
             
-            <div style={{ width: "60%", marginRight: "15px" }} >
+            <div style={{ width: "20%", marginRight: "15px" }} >
               
 
             </div>

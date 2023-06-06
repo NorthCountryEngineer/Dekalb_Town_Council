@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -14,14 +14,23 @@ export declare type ValidationResponse = {
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type UserCreateFormInputValues = {
     cognitoID?: string;
+    Email?: string;
+    Phone?: string;
+    Newsletter?: boolean;
 };
 export declare type UserCreateFormValidationValues = {
     cognitoID?: ValidationFunction<string>;
+    Email?: ValidationFunction<string>;
+    Phone?: ValidationFunction<string>;
+    Newsletter?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type UserCreateFormOverridesProps = {
     UserCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
     cognitoID?: PrimitiveOverrideProps<TextFieldProps>;
+    Email?: PrimitiveOverrideProps<TextFieldProps>;
+    Phone?: PrimitiveOverrideProps<TextFieldProps>;
+    Newsletter?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type UserCreateFormProps = React.PropsWithChildren<{
     overrides?: UserCreateFormOverridesProps | undefined | null;

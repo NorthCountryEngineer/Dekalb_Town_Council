@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
@@ -13,21 +13,30 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type CommentCreateFormInputValues = {
-    UserID?: string;
     Header?: string;
     Body?: string;
+    Anonymous?: boolean;
+    RespondByText?: boolean;
+    RespondByEmail?: boolean;
+    RespondBySocial?: boolean;
 };
 export declare type CommentCreateFormValidationValues = {
-    UserID?: ValidationFunction<string>;
     Header?: ValidationFunction<string>;
     Body?: ValidationFunction<string>;
+    Anonymous?: ValidationFunction<boolean>;
+    RespondByText?: ValidationFunction<boolean>;
+    RespondByEmail?: ValidationFunction<boolean>;
+    RespondBySocial?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type CommentCreateFormOverridesProps = {
     CommentCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-    UserID?: PrimitiveOverrideProps<TextFieldProps>;
     Header?: PrimitiveOverrideProps<TextFieldProps>;
     Body?: PrimitiveOverrideProps<TextFieldProps>;
+    Anonymous?: PrimitiveOverrideProps<SwitchFieldProps>;
+    RespondByText?: PrimitiveOverrideProps<SwitchFieldProps>;
+    RespondByEmail?: PrimitiveOverrideProps<SwitchFieldProps>;
+    RespondBySocial?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type CommentCreateFormProps = React.PropsWithChildren<{
     overrides?: CommentCreateFormOverridesProps | undefined | null;
