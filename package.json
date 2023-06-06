@@ -16,6 +16,7 @@
     "@mui/lab": "^5.0.0-alpha.117",
     "@mui/material": "^5.13.2",
     "@mui/system": "^5.4.1",
+    "@remotion/google-fonts": "^3.3.99",
     "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.4",
     "aws-amplify": "^5.2.4",
