@@ -1,10 +1,56 @@
 import { Divider } from "@aws-amplify/ui-react"
 import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
 import { ExpandMore } from "@mui/icons-material"
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Modal, TextField, Typography } from "@mui/material"
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Modal, Paper, TextField, Typography } from "@mui/material"
 import { Box, Stack } from "@mui/system"
 import { Auth } from "aws-amplify"
 import { useEffect, useState } from "react"
+
+export const NewsletterForm = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission here
+  };
+
+  return (
+    <Paper sx={{backgroundColor: "rgb(255,2555,255,.8)", alignItems:"start"}}>
+      <Typography variant="h4">Get our newsletter!</Typography>
+      <Typography variant="caption">I'm going to aim for monthly, unsubscribe at any time</Typography>
+      <form onSubmit={handleSubmit} style={{margin:"10px", backgroundColor:"white"}}>
+        <TextField
+          label="First Name"
+          variant="outlined"
+          required
+          margin="normal"
+          sx={{width:"45%", mr:"5%"}}
+        />
+        <TextField
+          label="Last Name"
+          variant="outlined"
+          required
+          margin="normal"
+          sx={{width:"45%", ml:"5%"}}
+        />
+        <TextField
+          label="Email Address"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+        />
+
+        <Button type="submit" variant="contained" color="primary" sx={{mr:"10px"}}>
+          Signup for Newsletter
+        </Button>
+        <Button variant="contained" color="secondary"  sx={{ml:"10px"}}>
+          Sign in to Account
+        </Button>
+
+      </form>
+    </Paper>
+  );
+};
+
 
 export function Calendar() {
   useEffect(() => {
@@ -72,8 +118,10 @@ export const ContactForm = () => {
   };
 
   return (
-    <>
+    <div>
+      
       <form onSubmit={handleSubmit}>
+      
         <Stack direction="column" spacing={2}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Avatar src="/Images/EricHomePhoto.png" alt="Your Photo" sx={{ width: '50px' }} />
@@ -116,12 +164,12 @@ export const ContactForm = () => {
           </Button>
         </Stack>
       </Modal>
-    </>
+    </div>
   );
 };
 
 
-export default function CampaignPoints() {
+export function CampaignPoints() {
   const intelligentGrowth = ()=> {
     return(
       <>

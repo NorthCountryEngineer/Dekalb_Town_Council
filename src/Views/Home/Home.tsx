@@ -1,5 +1,5 @@
 import { CssBaseline, Grid, Container, Paper } from "@mui/material";
-import CampaignPoints, { Calendar, ContactForm } from "./Components";
+import { CampaignPoints, Calendar, ContactForm, NewsletterForm } from "./Components";
 import { Stack, styled } from "@mui/system";
 import Item from "../../Components/Common/Components";
 
@@ -27,17 +27,16 @@ export function Home() {
           <Stack direction="row" spacing={0}>
             
 
-            <Item style={{ maxHeight: "90%", height:"100%", width: "40%", marginLeft: "15px" }}>
+            <Item style={{ maxHeight: "90%", height:"100%", width: "45%", marginLeft: "15px" }}>
               <CampaignPoints />
             </Item>
 
-            <div style={{width:"40%"}}>
+            <div style={{width:"10%"}}>
             </div>
             
-            <div style={{ width: "20%", marginRight: "15px" }} >
-              
-
-            </div>
+            <Item style={{ maxHeight: "90%", height:"100%", width: "45%", marginRight: "15px" }}>
+              <NewsletterForm />
+            </Item>
           </Stack>
         </Grid>
       </Grid>
