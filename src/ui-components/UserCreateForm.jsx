@@ -31,17 +31,23 @@ export default function UserCreateForm(props) {
   const initialValues = {
     cognitoID: "",
     Email: "",
+    First: "",
+    Last: "",
     Phone: "",
     Newsletter: false,
   };
   const [cognitoID, setCognitoID] = React.useState(initialValues.cognitoID);
   const [Email, setEmail] = React.useState(initialValues.Email);
+  const [First, setFirst] = React.useState(initialValues.First);
+  const [Last, setLast] = React.useState(initialValues.Last);
   const [Phone, setPhone] = React.useState(initialValues.Phone);
   const [Newsletter, setNewsletter] = React.useState(initialValues.Newsletter);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setCognitoID(initialValues.cognitoID);
     setEmail(initialValues.Email);
+    setFirst(initialValues.First);
+    setLast(initialValues.Last);
     setPhone(initialValues.Phone);
     setNewsletter(initialValues.Newsletter);
     setErrors({});
@@ -49,6 +55,8 @@ export default function UserCreateForm(props) {
   const validations = {
     cognitoID: [],
     Email: [{ type: "Required" }],
+    First: [],
+    Last: [],
     Phone: [],
     Newsletter: [],
   };
@@ -80,6 +88,8 @@ export default function UserCreateForm(props) {
         let modelFields = {
           cognitoID,
           Email,
+          First,
+          Last,
           Phone,
           Newsletter,
         };
@@ -138,6 +148,8 @@ export default function UserCreateForm(props) {
             const modelFields = {
               cognitoID: value,
               Email,
+              First,
+              Last,
               Phone,
               Newsletter,
             };
@@ -165,6 +177,8 @@ export default function UserCreateForm(props) {
             const modelFields = {
               cognitoID,
               Email: value,
+              First,
+              Last,
               Phone,
               Newsletter,
             };
@@ -182,6 +196,64 @@ export default function UserCreateForm(props) {
         {...getOverrideProps(overrides, "Email")}
       ></TextField>
       <TextField
+        label="First"
+        isRequired={false}
+        isReadOnly={false}
+        value={First}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              cognitoID,
+              Email,
+              First: value,
+              Last,
+              Phone,
+              Newsletter,
+            };
+            const result = onChange(modelFields);
+            value = result?.First ?? value;
+          }
+          if (errors.First?.hasError) {
+            runValidationTasks("First", value);
+          }
+          setFirst(value);
+        }}
+        onBlur={() => runValidationTasks("First", First)}
+        errorMessage={errors.First?.errorMessage}
+        hasError={errors.First?.hasError}
+        {...getOverrideProps(overrides, "First")}
+      ></TextField>
+      <TextField
+        label="Last"
+        isRequired={false}
+        isReadOnly={false}
+        value={Last}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              cognitoID,
+              Email,
+              First,
+              Last: value,
+              Phone,
+              Newsletter,
+            };
+            const result = onChange(modelFields);
+            value = result?.Last ?? value;
+          }
+          if (errors.Last?.hasError) {
+            runValidationTasks("Last", value);
+          }
+          setLast(value);
+        }}
+        onBlur={() => runValidationTasks("Last", Last)}
+        errorMessage={errors.Last?.errorMessage}
+        hasError={errors.Last?.hasError}
+        {...getOverrideProps(overrides, "Last")}
+      ></TextField>
+      <TextField
         label="Phone"
         isRequired={false}
         isReadOnly={false}
@@ -192,6 +264,8 @@ export default function UserCreateForm(props) {
             const modelFields = {
               cognitoID,
               Email,
+              First,
+              Last,
               Phone: value,
               Newsletter,
             };
@@ -219,6 +293,8 @@ export default function UserCreateForm(props) {
             const modelFields = {
               cognitoID,
               Email,
+              First,
+              Last,
               Phone,
               Newsletter: value,
             };

@@ -16,12 +16,16 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type UserUpdateFormInputValues = {
     cognitoID?: string;
     Email?: string;
+    First?: string;
+    Last?: string;
     Phone?: string;
     Newsletter?: boolean;
 };
 export declare type UserUpdateFormValidationValues = {
     cognitoID?: ValidationFunction<string>;
     Email?: ValidationFunction<string>;
+    First?: ValidationFunction<string>;
+    Last?: ValidationFunction<string>;
     Phone?: ValidationFunction<string>;
     Newsletter?: ValidationFunction<boolean>;
 };
@@ -30,6 +34,8 @@ export declare type UserUpdateFormOverridesProps = {
     UserUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
     cognitoID?: PrimitiveOverrideProps<TextFieldProps>;
     Email?: PrimitiveOverrideProps<TextFieldProps>;
+    First?: PrimitiveOverrideProps<TextFieldProps>;
+    Last?: PrimitiveOverrideProps<TextFieldProps>;
     Phone?: PrimitiveOverrideProps<TextFieldProps>;
     Newsletter?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;

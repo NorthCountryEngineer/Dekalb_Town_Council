@@ -103,13 +103,6 @@ export const schema = {
                         ]
                     }
                 },
-                "UserID": {
-                    "name": "UserID",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "Header": {
                     "name": "Header",
                     "isArray": false,
@@ -121,7 +114,35 @@ export const schema = {
                     "name": "Body",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Anonymous": {
+                    "name": "Anonymous",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "RespondByText": {
+                    "name": "RespondByText",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "RespondByEmail": {
+                    "name": "RespondByEmail",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "RespondBySocial": {
+                    "name": "RespondBySocial",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": true,
                     "attributes": []
                 },
                 "CommentResponses": {
@@ -176,9 +197,8 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "allow": "private",
+                                "allow": "public",
                                 "operations": [
-                                    "create",
                                     "read"
                                 ]
                             },
@@ -216,6 +236,34 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "Email": {
+                    "name": "Email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "First": {
+                    "name": "First",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Last": {
+                    "name": "Last",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Phone": {
+                    "name": "Phone",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "Comment": {
                     "name": "Comment",
                     "isArray": false,
@@ -230,6 +278,13 @@ export const schema = {
                             "userCommentId"
                         ]
                     }
+                },
+                "Newsletter": {
+                    "name": "Newsletter",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -279,7 +334,7 @@ export const schema = {
                                 ]
                             },
                             {
-                                "allow": "private",
+                                "allow": "public",
                                 "operations": [
                                     "create",
                                     "read"
@@ -294,5 +349,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.2",
-    "version": "5b3582710c368e89511e55111f46f6ce"
+    "version": "cdc2dddd948d3c85fa116fa4c7fbb1e6"
 };

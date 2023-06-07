@@ -1,16 +1,70 @@
-import { Divider } from "@aws-amplify/ui-react"
-import { SecretsManagerClient, GetSecretValueCommand } from "@aws-sdk/client-secrets-manager"
 import { ExpandMore } from "@mui/icons-material"
-import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Modal, Paper, TextField, Typography } from "@mui/material"
-import { Box, Stack } from "@mui/system"
-import { Auth } from "aws-amplify"
+import { Accordion, AccordionDetails, AccordionSummary, Avatar, Button, Checkbox, FormControlLabel, Modal, Paper, TextField, Typography } from "@mui/material"
+import { Stack } from "@mui/system"
+import { API, Auth, graphqlOperation } from "aws-amplify"
 import { useEffect, useState } from "react"
+import { createUser } from "../../graphql/mutations"
+import { listUsers } from "../../graphql/queries"
 
 export const NewsletterForm = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission here
-  };
+  const [firstName, setFirstName] = useState<String>("")
+  const [lastName, setLastName] = useState<String>("")
+  const [email, setEmail] = useState<String>("")
+  const [newsLetter, setNewsLetter] = useState<boolean>(true)
+  const [newAccountModal, setNewAccountModal] = useState<boolean>(false)
+
+  const setNewsletterHook = (event, setHook) => {
+    setHook(event.target.value)
+  }
+
+  const checkEmailAvailability = async (email) => {
+    try {
+      const response:any = await API.graphql(graphqlOperation(listUsers, { filter: { Email: { eq: email } } }));
+      const users = response.data.listUsers.items;
+  
+      return users.length === 0;
+    } catch (error) {
+      console.error('Error checking email availability:', error);
+    }
+  }
+
+  const handleSubmit = async () => {
+
+    try {
+      const isEmailAvailable = await checkEmailAvailability(email)
+      console.log("handleSubmit isEmailAvailable response: ", isEmailAvailable)
+  
+      if (!isEmailAvailable) {
+        console.error('Email address is already in use')
+        return
+      }
+
+      try {
+        console.log(email, firstName, lastName, newsLetter)
+        if(email==undefined || firstName==undefined || lastName==undefined || newsLetter==undefined){
+          console.error("Null values")
+        }else{
+          const response:any = await API.graphql(graphqlOperation(createUser, {
+            input: {
+              First: firstName,
+              Last: lastName,
+              Email: email,
+              Newsletter: newsLetter,
+            },
+          }))
+          console.log("createUser response: ", response)
+          return response.data.createUser;
+        }
+      } catch (error) {
+        console.error('Error creating user:', error);
+      }
+
+    } catch (error) {
+      console.error('Error creating user:', error)
+    }
+  }
+  
+
 
   return (
     <Paper sx={{backgroundColor: "rgb(255,2555,255,.8)", alignItems:"start"}}>
@@ -23,6 +77,7 @@ export const NewsletterForm = () => {
           required
           margin="normal"
           sx={{width:"45%", mr:"5%"}}
+          onChange={(e) => setNewsletterHook(e, setFirstName)}
         />
         <TextField
           label="Last Name"
@@ -30,6 +85,7 @@ export const NewsletterForm = () => {
           required
           margin="normal"
           sx={{width:"45%", ml:"5%"}}
+          onChange={(e) => setNewsletterHook(e, setLastName)}
         />
         <TextField
           label="Email Address"
@@ -37,19 +93,33 @@ export const NewsletterForm = () => {
           fullWidth
           required
           margin="normal"
+          onChange={(e) => setNewsletterHook(e, setEmail)}
         />
 
-        <Button type="submit" variant="contained" color="primary" sx={{mr:"10px"}}>
+        <FormControlLabel 
+          control={<Checkbox defaultChecked />} 
+          label="Sign up for monthly newsletter" 
+          onChange={()=>setNewsLetter(!newsLetter)}
+        />
+
+        <FormControlLabel 
+          control={<Checkbox />} 
+          label="Create Account" 
+          onChange={()=> setNewAccountModal(!newAccountModal)}
+        />
+
+        <br />
+
+        <Button variant="contained" color="primary" sx={{mr:"10px"}} onClick={handleSubmit}>
           Signup for Newsletter
         </Button>
         <Button variant="contained" color="secondary"  sx={{ml:"10px"}}>
           Sign in to Account
         </Button>
-
       </form>
     </Paper>
-  );
-};
+  )
+}
 
 
 export function Calendar() {
@@ -64,58 +134,58 @@ export function Calendar() {
 }
 
 export const ContactForm = () => {
-  const [header, setHeader] = useState('');
-  const [body, setBody] = useState('');
-  const [signInModalOpen, setSignInModalOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [header, setHeader] = useState('')
+  const [body, setBody] = useState('')
+  const [signInModalOpen, setSignInModalOpen] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
-    checkAuthStatus();
-  }, []);
+    checkAuthStatus()
+  }, [])
 
   const checkAuthStatus = async () => {
     try {
-      await Auth.currentAuthenticatedUser();
-      setIsAuthenticated(true);
+      await Auth.currentAuthenticatedUser()
+      setIsAuthenticated(true)
     } catch (error) {
-      setIsAuthenticated(false);
+      setIsAuthenticated(false)
     }
-  };
+  }
 
   const handleInputChange = (event) => {
-    const { id, value } = event.target;
+    const { id, value } = event.target
     if (id === 'header-input') {
-      setHeader(value);
+      setHeader(value)
     } else if (id === 'question-input') {
-      setBody(value);
+      setBody(value)
     }
-  };
+  }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (isAuthenticated) {
-      submitForm();
+      submitForm()
     } else {
-      setSignInModalOpen(true);
+      setSignInModalOpen(true)
     }
-  };
+  }
 
   const submitForm = () => {
-    console.log('Submitted:', header, body);
-  };
+    console.log('Submitted:', header, body)
+  }
 
   const handleOpenModal = () => {
-    setSignInModalOpen(true);
-  };
+    setSignInModalOpen(true)
+  }
 
   const handleCloseModal = () => {
-    setSignInModalOpen(false);
-  };
+    setSignInModalOpen(false)
+  }
 
   const handleModalSubmit = () => {
-    Auth.federatedSignIn();
-  };
+    Auth.federatedSignIn()
+  }
 
   return (
     <div>
@@ -165,8 +235,8 @@ export const ContactForm = () => {
         </Stack>
       </Modal>
     </div>
-  );
-};
+  )
+}
 
 
 export function CampaignPoints() {
@@ -188,7 +258,7 @@ export function CampaignPoints() {
     return(
       <>
         <Typography variant="body1" sx={{ textAlign: 'left', mb:"5px" }}>
-          In a time when trust in leadership is paramount, I am committed to a new standard for transparency, honesty, and responsiveness. This goes beyond making empty promises; it's about clear, forthright communication, sharing updates as soon as they become available to me, and holding myself accountable to our community.
+          In a time when trust in leadership is paramount, I am committed to a new standard for transparency, honesty, and responsiveness. This goes beyond making empty promises it's about clear, forthright communication, sharing updates as soon as they become available to me, and holding myself accountable to our community.
         </Typography>
         <Typography variant="body1" sx={{ textAlign: 'left', mb:"5px" }}>
           I pledge to meet people where they are, engaging through a variety of social media platforms, including Facebook, Twitter, Reddit, Instagram, and even TikTok. I aim to make local government part of our everyday conversation, ensuring everyone in our community, particularly the younger generation, is informed, engaged, and has their voice heard. Together, we can make local governance a collective effort that truly serves Dekalb.
@@ -209,6 +279,12 @@ export function CampaignPoints() {
      </>
     )
   }
+
+  /**
+   * Community engagement is the cornerstone of a thriving Dekalb, a principle that extends beyond simple dialogue. It encapsulates collaboration, shared vision, and above all, genuine listening to the varied voices of Dekalb residents. As your representative, I pledge to be a leader who also listens, ensuring that your voices shape the policies we enact. My technical background uniquely positions me to improve our town's digital platforms, making local government more accessible to every resident.
+
+But engagement goes beyond mere interaction it's about fostering trust, building relationships, and uniting towards shared goals. I'm committed to transforming our local government's rapport with you into a process that's more open, participatory, and collaborative. Leveraging my technical experience, I plan to enhance our town's digital reach, ensuring we connect with everyone, both in the physical community spaces and the digital realms where they reside. A special focus will be empowering our younger generation, nurturing civic involvement, and fostering leadership skills. Together, we can create a Dekalb that authentically reflects our collective aspirations and values.
+   */
 
 
 
@@ -265,7 +341,7 @@ export function CampaignPoints() {
         </AccordionDetails>
       </Accordion>
     </div>
-  );
+  )
   
 }
 
