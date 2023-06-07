@@ -46,7 +46,7 @@ export const Header = ({ title }) => {
                 </div>
               </Stack>
             </Grid>
-            <Grid item xs={12} sm={6} md={8} display="flex" alignItems="center" justifyContent="flex-end" color="#94191b">
+            <Grid item xs={12} sm={6} md={8} display="flex" alignItems="center" justifyContent="flex-end" color="#0060ba">
               <Button color="inherit">
                 <Typography variant="h4" style={{fontFamily, padding:"25px"}}>
                   About
