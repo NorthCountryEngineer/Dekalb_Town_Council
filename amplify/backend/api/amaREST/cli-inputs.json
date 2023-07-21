@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/message": {
+      "name": "/message",
+      "lambdaFunction": "dekalbtowncouncilAmaRestServiceAPI",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

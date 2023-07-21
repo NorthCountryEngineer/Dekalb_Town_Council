@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { AppBar, Toolbar, Drawer, Typography, Grid, Stack, Avatar, Fab, Button } from '@mui/material';
 import { Star, Chat } from '@mui/icons-material';
-import { ContactForm } from '../../Views/Home';
 import { loadFont } from "@remotion/google-fonts/Dongle";
 const { fontFamily } = loadFont();
 
@@ -20,6 +19,17 @@ export const Header = ({ title }) => {
           <Grid container spacing={0} alignItems="center" justifyContent="space-between" height="100%">
             <Grid item xs={12} sm={6} md={4} display="flex" alignItems="center" justifyContent="flex-start">
               <Stack direction="column" alignItems="center">
+                <Stack direction="row">
+                <Avatar
+                  alt="Eric Yager"
+                  src="/Images/EricHomePhoto.png"
+                  sx={{ 
+                    width: 150, 
+                    height: 150,
+                    mt:1 
+                  
+                  }}
+                />
                 <img
                   src="/Images/Banner.png"
                   alt="Banner"
@@ -30,6 +40,7 @@ export const Header = ({ title }) => {
                     height: '175px',
                   }}
                 />
+                </Stack>
                 <div
                   style={{
                     display: 'flex',
@@ -72,12 +83,6 @@ export const Header = ({ title }) => {
           </Grid>
         </Toolbar>
       </AppBar>
-
-      <Drawer anchor="right" open={isMenuOpen} onClose={toggleMenu}>
-        <Stack direction="column" spacing={2} p={2}>
-          <ContactForm />
-        </Stack>
-      </Drawer>
 
       <Fab
         color="primary"

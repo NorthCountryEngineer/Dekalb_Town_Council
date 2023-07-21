@@ -1,5 +1,5 @@
-import { CssBaseline, Grid, Container, Paper } from "@mui/material";
-import { CampaignPoints, Calendar, ContactForm, NewsletterForm } from "./Components";
+import { CssBaseline, Grid, Container, Paper, Avatar } from "@mui/material";
+import { CampaignPoints } from "./Components";
 import { Stack, styled } from "@mui/system";
 import Item from "../../Components/Common/Components";
 
@@ -35,7 +35,7 @@ export function Home() {
             </div>
             
             <Item style={{ maxHeight: "90%", height:"100%", width: "45%", marginRight: "15px" }}>
-              <NewsletterForm />
+            
             </Item>
           </Stack>
         </Grid>

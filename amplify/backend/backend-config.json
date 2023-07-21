@@ -1,39 +1,18 @@
 {
   "api": {
-    "EricForDekalbCampaignService": {
+    "amaREST": {
       "dependsOn": [
         {
           "attributes": [
-            "UserPoolId"
+            "Name",
+            "Arn"
           ],
-          "category": "auth",
-          "resourceName": "dekalbtowncouncilbc145c29"
+          "category": "function",
+          "resourceName": "dekalbtowncouncilAmaRestServiceAPI"
         }
       ],
-      "output": {
-        "authConfig": {
-          "additionalAuthenticationProviders": [
-            {
-              "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authdekalbtowncouncilbc145c29"
-              }
-            }
-          ],
-          "defaultAuthentication": {
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "api key description"
-            },
-            "authenticationType": "API_KEY"
-          }
-        }
-      },
       "providerPlugin": "awscloudformation",
-      "service": "AppSync"
+      "service": "API Gateway"
     }
   },
   "auth": {
@@ -62,6 +41,55 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "dekalbtowncouncilAmaRestServiceAPI": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "dekalbtowncouncilbc145c29"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn",
+            "StreamArn"
+          ],
+          "category": "storage",
+          "resourceName": "ama"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_dekalbtowncouncilAmaRestServiceAPI_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "dekalbtowncouncilAmaRestServiceAPI"
+        }
+      ]
+    },
+    "AMPLIFY_function_dekalbtowncouncilAmaRestServiceAPI_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "dekalbtowncouncilAmaRestServiceAPI"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "ama": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
     }
   }
 }
