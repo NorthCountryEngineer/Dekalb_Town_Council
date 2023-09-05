@@ -27,28 +27,27 @@ export function Home() {
           <Stack direction="row" spacing={0}>
             
 
-            <Item style={{ maxHeight: "90%", height:"100%", width: "65%", marginLeft: "15px" }}>
+            <Item style={{ maxHeight: "90%", height:"100%", width: "70%", marginLeft: "15px" }}>
               <CampaignPoints />
             </Item>
 
 
             
-            <Item style={{ maxHeight: "90%", height:"100%", width: "50%", marginRight: "35%", marginLeft: "5%", alignContent: "center"}}>
+            <Item style={{ maxHeight: "90%", height:"100%", width: "50%", marginLeft: "5%", marginRight: "5%", alignContent: "center", backgroundColor:"rgb(0,0,0,.0"}}>
                 <img
                     src="/Images/MilitaryPhoto.png"
                     alt="Banner"
                     style={{
-                      width: "90%",
+                      width: "70%",
                       height:"90%",
                       alignSelf:"center"
                     }}
                 />
                 <img
-                    src="/Images/MilitaryPhoto.png"
+                    src="/Images/MilitaryPhoto2.png"
                     alt="Banner"
                     style={{
-                      width: "90%",
-                      height:"90%",
+                      width: "50%",
                       alignSelf:"center"
                     }}
                 />
