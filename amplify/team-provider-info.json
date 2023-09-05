@@ -17,15 +17,6 @@
       },
       "storage": {
         "ama": {}
-      },
-      "function": {
-        "dekalbtowncouncilAmaRestServiceAPI": {
-          "deploymentBucketName": "amplify-dekalbtowncouncil-dev-163728-deployment",
-          "s3Key": "amplify-builds/dekalbtowncouncilAmaRestServiceAPI-307366776933664f6346-build.zip"
-        }
-      },
-      "api": {
-        "amaREST": {}
       }
     }
   }

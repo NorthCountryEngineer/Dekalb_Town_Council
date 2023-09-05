@@ -1,20 +1,5 @@
 {
-  "api": {
-    "amaREST": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "dekalbtowncouncilAmaRestServiceAPI"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
+  "api": {},
   "auth": {
     "dekalbtowncouncilbc145c29": {
       "customAuth": false,
@@ -43,49 +28,7 @@
       "service": "Cognito"
     }
   },
-  "function": {
-    "dekalbtowncouncilAmaRestServiceAPI": {
-      "build": true,
-      "dependsOn": [
-        {
-          "attributes": [
-            "UserPoolId"
-          ],
-          "category": "auth",
-          "resourceName": "dekalbtowncouncilbc145c29"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn",
-            "StreamArn"
-          ],
-          "category": "storage",
-          "resourceName": "ama"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_dekalbtowncouncilAmaRestServiceAPI_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dekalbtowncouncilAmaRestServiceAPI"
-        }
-      ]
-    },
-    "AMPLIFY_function_dekalbtowncouncilAmaRestServiceAPI_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "dekalbtowncouncilAmaRestServiceAPI"
-        }
-      ]
-    }
-  },
+  "function": {},
   "storage": {
     "ama": {
       "providerPlugin": "awscloudformation",
